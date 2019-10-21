@@ -1,5 +1,6 @@
 const defaultState = {
-    heroes: []
+    heroes: [],
+    heroIndex: 0
 };
 
 export const tavernState = (state = defaultState, action) => {
@@ -9,6 +10,11 @@ export const tavernState = (state = defaultState, action) => {
                 ...state,
                 heroes: action.heroes
             };
+        case 'SCROLL_HEROES':
+            return {
+                ...state,
+                heroIndex: action.heroIndex
+            };            
         default:
             return state
     }

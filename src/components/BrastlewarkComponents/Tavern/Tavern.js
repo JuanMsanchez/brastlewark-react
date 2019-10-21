@@ -5,24 +5,37 @@ import Hero from './Hero';
 export default class Tavern extends Component {
     static propTypes = {
       heroes: PropTypes.array.isRequired,
+      heroIndex: PropTypes.number.isRequired,
       fillTavern: PropTypes.func.isRequired,
+      drinksOnMe: PropTypes.func.isRequired,
     };
 
     componentDidMount() {
-      const { fillTavern } = this.props;
+      const { fillTavern, drinksOnMe } = this.props;
       fillTavern();
+      window.addEventListener('wheel', drinksOnMe);
+    }
+
+    componentWillUnmount() {
+      const { drinksOnMe } = this.props;
+      window.removeEventListener('wheel', drinksOnMe);
     }
 
     render() {
         return (
           <div>
-            {this.fillTavern()}
+            {this.renderHeroes()}
           </div>
         );
     };
 
-    fillTavern() {
-      const { heroes } = this.props;
-      return heroes.map(hero => (<Hero hero={hero} key={hero.id}></Hero>));
+    renderHeroes() {
+      const { heroes, heroIndex } = this.props;
+      const currentHeroes = [...Array(10).keys()]
+        .filter(e => heroes[e + heroIndex])
+        .map(e => heroes[e + heroIndex]);
+      return currentHeroes.map(hero => (<Hero hero={hero} key={hero.id}></Hero>));
     }
 }
+
+
