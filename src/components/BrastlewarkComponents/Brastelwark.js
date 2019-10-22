@@ -5,9 +5,8 @@ export default class Brastelwark extends Component {
     render() {
         return (
             <div>
-                <br/><br/>
-                <div className="jumbotron">
-                    <h1 className="display-4">Welcome to Bratlewark!</h1>
+                <div className="jumbotron bratelwark-sign">
+                    <h1 className="display-6">Welcome to Bratlewark!</h1>
                 </div>                
                 <Tavern/>
             </div>

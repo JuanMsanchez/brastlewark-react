@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Hero from './Hero';
+import { throttle } from 'throttle-debounce';
+
 
 export default class Tavern extends Component {
     static propTypes = {
@@ -13,7 +15,7 @@ export default class Tavern extends Component {
     componentDidMount() {
       const { fillTavern, drinksOnMe } = this.props;
       fillTavern();
-      window.addEventListener('wheel', drinksOnMe);
+      window.addEventListener('wheel', throttle(100, drinksOnMe))
     }
 
     componentWillUnmount() {
@@ -23,7 +25,7 @@ export default class Tavern extends Component {
 
     render() {
         return (
-          <div>
+          <div className="tavern">
             {this.renderHeroes()}
           </div>
         );
@@ -32,8 +34,16 @@ export default class Tavern extends Component {
     renderHeroes() {
       const { heroes, heroIndex } = this.props;
       const currentHeroes = [...Array(10).keys()]
-        .filter(e => heroes[e + heroIndex])
+        .filter(e => heroes[e + (heroIndex * 2)])
         .map(e => heroes[e + heroIndex]);
+
+        [...Array(10).keys()]
+        .filter(e => heroes[e + (heroIndex * 2)])
+        .forEach((e) => {
+          const img = new Image();
+          const hero = heroes[e + (heroIndex * 2)];
+          img.src = hero.thumbnail.replace('http:', 'https:');
+        })
       return currentHeroes.map(hero => (<Hero hero={hero} key={hero.id}></Hero>));
     }
 }
