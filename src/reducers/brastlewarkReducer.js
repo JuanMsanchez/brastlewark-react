@@ -8,8 +8,14 @@ export const tavernState = (state = defaultState, action) => {
         case 'LOAD_HEROES':
             return {
                 ...state,
-                heroes: action.heroes
+                heroes: action.heroes,
+                fullHeroesList: action.heroes,
             };
+        case 'FILTER_HEROES':
+            return {
+                ...state,
+                heroes: action.heroes,
+            };            
         case 'SCROLL_HEROES':
             return {
                 ...state,

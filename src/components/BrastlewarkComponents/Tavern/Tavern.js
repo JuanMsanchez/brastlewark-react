@@ -10,6 +10,7 @@ export default class Tavern extends Component {
       heroIndex: PropTypes.number.isRequired,
       fillTavern: PropTypes.func.isRequired,
       drinksOnMe: PropTypes.func.isRequired,
+      findHeros: PropTypes.func.isRequired,
     };
 
     componentDidMount() {
@@ -24,8 +25,13 @@ export default class Tavern extends Component {
     }
 
     render() {
+        const { findHeros } = this.props;
         return (
           <div className="tavern">
+            <div className="jumbotron bratelwark-sign">
+                <h1 className="display-6">Welcome to Bratlewark!</h1>
+                <input type="text" className="search" placeholder="search..." onChange={findHeros} />
+            </div>                   
             {this.renderHeroes()}
           </div>
         );
@@ -34,7 +40,7 @@ export default class Tavern extends Component {
     renderHeroes() {
       const { heroes, heroIndex } = this.props;
       const currentHeroes = [...Array(10).keys()]
-        .filter(e => heroes[e + (heroIndex * 2)])
+        .filter(e => heroes[e + heroIndex])
         .map(e => heroes[e + heroIndex]);
 
         [...Array(10).keys()]

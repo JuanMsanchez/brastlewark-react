@@ -14,6 +14,13 @@ export const scrollHeroes = (heroIndex) => {
     }
 };
 
+export const filterHeroes = (heroes) => {
+    return {
+        type: 'FILTER_HEROES',
+        heroes
+    }
+};
+
 const fetchHeroes = async (dispatch, getState) => {
     const brastlewarkClient = new ApiClient();
     try {
@@ -37,12 +44,32 @@ export function drinksOnMe(event) {
         const { heroIndex } = getState().tavernState;
         if (event.deltaY > 0) {
             newIndex = heroIndex + 1;
-            console.log('GOING UP', heroIndex, newIndex);
         }
         if (event.deltaY < 0) {
             newIndex = heroIndex - 1;
-            console.log('GOING DOWN', heroIndex, newIndex);
         }
         return dispatch(scrollHeroes(Math.max(newIndex, 0)))
+    }
+};
+
+export function findHeros(event) {
+    return function(dispatch, getState) {
+        const { fullHeroesList } = getState().tavernState;
+        const query = event.target.value;
+        const words = query.toLowerCase().split(' ')
+        const filteredList = fullHeroesList.filter((h) => {
+            const match = words.reduce((match, word) => {
+                return (match && h.name.toLowerCase().includes(word));
+            }, true)
+            return match;
+        }).sort((h) => {
+            let score = 0;
+            if (h.name.split(' ')[0] === words[0]) score=+4;
+            if (h.name.split(' ')[1] === words[1]) score=+3;
+            if (h.name.split(' ')[0].includes(words[0])) score=+2;
+            if (h.name.split(' ')[1].includes(words[1])) score=+1;
+            return score;
+        })
+        return dispatch(filterHeroes(filteredList));
     }
 };

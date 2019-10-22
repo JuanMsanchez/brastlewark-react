@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fillTavern, drinksOnMe } from './../../../actions/brastlewarkActions'
+import { fillTavern, drinksOnMe, findHeros } from './../../../actions/brastlewarkActions'
 import Tavern from './Tavern';
 
 function mapStateToProps(state) {
@@ -17,6 +17,7 @@ function mapDispatchToProps(dispatch) {
             ...bindActionCreators({
             fillTavern,
             drinksOnMe,
+            findHeros,
         }, dispatch)
     }
 }
