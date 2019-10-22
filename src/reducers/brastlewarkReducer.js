@@ -15,6 +15,7 @@ export const tavernState = (state = defaultState, action) => {
             return {
                 ...state,
                 heroes: action.heroes,
+                heroIndex: 0,
             };            
         case 'SCROLL_HEROES':
             return {
