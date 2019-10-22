@@ -30,10 +30,15 @@
 }
 
 .details-list ul {
-  margin-left: 10;
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
+.details-list li {
+  margin: 0;
+  padding: 0;
+}
 .avatar {
   border-radius: 50%;
   height: 50px;
@@ -76,4 +81,14 @@ input[type='checkbox'] {
   border: none;
   background: none;
   border-bottom: 1px solid #ccc9c9;
+}
+
+.professions {
+  margin: 0;
+  padding: 0;
+}
+
+.friends {
+  margin: 0;
+  padding: 0;
 }

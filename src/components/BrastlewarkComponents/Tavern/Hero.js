@@ -36,16 +36,14 @@ export default class Hero extends Component {
               <input id={hero.id} className="toggle" type="checkbox"/>
 
               <div className="details-list col-12 row collapsible-content">
-                <ul className="col-6">
-                  <li><span><b>age:</b> {hero.age}</span></li>
-                  <li><span><b>hair color:</b> {hero.hair_color}</span></li>
+                <ul className="col-12 row">
+                  <li className="col-6"><span><small>Age:</small> <small>{hero.age}</small></span></li>
+                  <li className="col-6"><span><small>Hair:</small> <small>{hero.hair_color}</small></span></li>
+                  <li className="col-6"><span><small>Weight:</small> <small>{parseFloat(hero.weight).toFixed(2)}</small></span></li>
+                  <li className="col-6"><span><small>Height:</small> <small>{parseFloat(hero.height).toFixed(2)}</small></span></li>                  
+                  <li className="professions col-12"><small>Professions:</small> <small>{hero.professions.join()}</small></li>
+                  <li className="friends col-12"><small>Friends:</small> <small>{hero.friends.join()}</small></li>              
                 </ul>
-                <ul className="col-6">
-                  <li><span><b>weight:</b> {hero.weight}</span></li>
-                  <li><span><b>height:</b> {hero.height}</span></li>
-                </ul>
-                <p className="col-12"><b>professions:</b> {hero.professions.join()}</p><br/>              
-                <p className="col-12"><b>friends:</b> {hero.friends.join()}</p>              
               </div>
               </label>
           </div>
