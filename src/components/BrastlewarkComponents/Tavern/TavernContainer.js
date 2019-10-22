@@ -7,7 +7,8 @@ import Tavern from './Tavern';
 function mapStateToProps(state) {
     return {
         heroes: state.tavernState.heroes,
-        heroIndex: state.tavernState.heroIndex
+        heroIndex: state.tavernState.heroIndex,
+        query: state.tavernState.query
     }
 }
 

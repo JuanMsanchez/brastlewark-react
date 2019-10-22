@@ -14,10 +14,11 @@ export const scrollHeroes = (heroIndex) => {
     }
 };
 
-export const filterHeroes = (heroes) => {
+export const filterHeroes = (heroes, query) => {
     return {
         type: 'FILTER_HEROES',
-        heroes
+        heroes,
+        query
     }
 };
 
@@ -52,10 +53,9 @@ export function drinksOnMe(event) {
     }
 };
 
-export function findHeros(event) {
+export function findHeros(query) {
     return function(dispatch, getState) {
         const { fullHeroesList } = getState().tavernState;
-        const query = event.target.value;
         const words = query.toLowerCase().split(' ')
         const filteredList = fullHeroesList.filter((h) => {
             const match = words.reduce((match, word) => {
@@ -70,6 +70,6 @@ export function findHeros(event) {
             if (h.name.split(' ')[1].includes(words[1])) score=+1;
             return score;
         })
-        return dispatch(filterHeroes(filteredList));
+        return dispatch(filterHeroes(filteredList, query));
     }
 };

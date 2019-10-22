@@ -15,9 +15,22 @@ export default class Hero extends Component {
         hair_color: PropTypes.string.isRequired,
         professions: PropTypes.array.isRequired,
         friends: PropTypes.array.isRequired,
-        test: PropTypes.string,
-      })
+      }),
+      findHeros: PropTypes.func.isRequired,
     };
+
+    goToHeroCard() {
+
+    }
+
+    renderFriendLinks(friends) {
+      const { findHeros } = this.props;
+      if(!friends) return ('');
+      const friendLinks = friends.map((friend) => {
+        return (<span className="friend-link" onClick={() => { findHeros(friend); }}> {friend}, </span>);
+      });
+      return friendLinks;
+    }
 
     render() {
         const { hero } = this.props;
@@ -41,8 +54,11 @@ export default class Hero extends Component {
                   <li className="col-6"><span><small>Hair:</small> <small>{hero.hair_color}</small></span></li>
                   <li className="col-6"><span><small>Weight:</small> <small>{parseFloat(hero.weight).toFixed(2)}</small></span></li>
                   <li className="col-6"><span><small>Height:</small> <small>{parseFloat(hero.height).toFixed(2)}</small></span></li>                  
-                  <li className="professions col-12"><small>Professions:</small> <small>{hero.professions.join()}</small></li>
-                  <li className="friends col-12"><small>Friends:</small> <small>{hero.friends.join()}</small></li>              
+                  <li className="professions col-12"><small>Professions:</small> <small>{hero.professions.join(', ')}</small></li>
+                  <li className="friends col-12">
+                    <small>Friends:</small>
+                    <small>{this.renderFriendLinks(hero.friends)}</small>
+                  </li>              
                 </ul>
               </div>
               </label>

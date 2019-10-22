@@ -11,6 +11,7 @@ export default class Tavern extends Component {
       fillTavern: PropTypes.func.isRequired,
       drinksOnMe: PropTypes.func.isRequired,
       findHeros: PropTypes.func.isRequired,
+      query: PropTypes.string,
     };
 
     componentDidMount() {
@@ -25,20 +26,24 @@ export default class Tavern extends Component {
     }
 
     render() {
-        const { findHeros } = this.props;
         return (
           <div className="tavern">
             <div className="jumbotron bratelwark-sign">
                 <h1 className="display-6">Welcome to Bratlewark!</h1>
-                <input type="text" className="search" placeholder="search..." onChange={findHeros} />
+                <input type="text" className="search" value={this.props.query} placeholder="search..." onChange={(e) => { this.filterHeroes(e) }} />
             </div>                   
             {this.renderHeroes()}
           </div>
         );
-    };
+    }
+
+    filterHeroes(e) {
+      const { findHeros } = this.props;
+      findHeros(e.target.value);
+    }
 
     renderHeroes() {
-      const { heroes, heroIndex } = this.props;
+      const { heroes, heroIndex, findHeros } = this.props;
       const currentHeroes = [...Array(10).keys()]
         .filter(e => heroes[e + heroIndex])
         .map(e => heroes[e + heroIndex]);
@@ -50,7 +55,9 @@ export default class Tavern extends Component {
           const hero = heroes[e + (heroIndex * 2)];
           img.src = hero.thumbnail.replace('http:', 'https:');
         })
-      return currentHeroes.map(hero => (<Hero hero={hero} key={hero.id}></Hero>));
+      return currentHeroes.map(hero => (
+        <Hero findHeros={findHeros} hero={hero} key={hero.id}></Hero>)
+      );
     }
 }
 
